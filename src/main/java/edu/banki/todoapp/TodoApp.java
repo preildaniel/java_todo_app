@@ -1,13 +1,6 @@
 package edu.banki.todoapp;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,7 +15,7 @@ public class TodoApp extends Application {
         stage.setTitle("Todo List");
 
         TodoController todoController = new TodoController();
-        VBox root = (VBox) todoController.createLayout();
+        VBox root = todoController.createLayout();
 
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
