@@ -3,11 +3,14 @@ package edu.banki.todoapp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class TodoController {
     @FXML
@@ -25,25 +28,10 @@ public class TodoController {
 
     private ObservableList<String> todoItems = FXCollections.observableArrayList();
 
-    public VBox createLayout() {
+    public VBox createLayout() throws IOException {
 
-        todoListView = new ListView<>(todoItems);
-        todoListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        inputField = new TextField();
-        inputField.setPromptText("Írj be egy új teendőt");
-        inputField.setOnAction(e -> addTodo());
-
-        addButton = new Button("Hozzáadás");
-        addButton.setOnAction(e -> addTodo());
-
-        deleteButton = new Button("Kijelölt elem törlése");
-        deleteButton.setOnAction(e -> deleteSelectedTodos());
-        inputRow = new HBox(10);
-
-        inputRow.getChildren().addAll(inputField, addButton);
-        bottomPanel = new VBox(10, todoListView, inputRow, deleteButton);
-        bottomPanel.setPadding(new Insets(10));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/banki/todoapp/todo-view.fxml"));
+        bottomPanel = fxmlLoader.load();
 
         return bottomPanel;
     }
