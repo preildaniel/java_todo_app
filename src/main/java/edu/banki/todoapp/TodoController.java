@@ -4,16 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ToDoController {
-
+public class TodoController {
     @FXML
     private ListView<String> todoListView;
     @FXML
@@ -26,29 +22,30 @@ public class ToDoController {
     private HBox inputRow;
     @FXML
     private VBox bottomPanel;
-    @FXML
-    private BorderPane root;
+
     private ObservableList<String> todoItems = FXCollections.observableArrayList();
 
-    public BorderPane createLayout() {
+    public VBox createLayout() {
+
         todoListView = new ListView<>(todoItems);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         inputField = new TextField();
         inputField.setPromptText("Írj be egy új teendőt");
         inputField.setOnAction(e -> addTodo());
+
         addButton = new Button("Hozzáadás");
         addButton.setOnAction(e -> addTodo());
+
         deleteButton = new Button("Kijelölt elem törlése");
         deleteButton.setOnAction(e -> deleteSelectedTodos());
         inputRow = new HBox(10);
+
         inputRow.getChildren().addAll(inputField, addButton);
-        bottomPanel = new VBox(5);
+        bottomPanel = new VBox(10, todoListView, inputRow, deleteButton);
         bottomPanel.setPadding(new Insets(10));
-        bottomPanel.getChildren().addAll(inputRow, deleteButton);
-        root = new BorderPane();
-        root.setCenter(todoListView);
-        root.setBottom(bottomPanel);
-        return root;
+
+        return bottomPanel;
     }
 
     private void addTodo() {
