@@ -39,7 +39,13 @@ public class TodoController implements Initializable {
         ObservableList<String> selectedItems = todoListView.getSelectionModel().getSelectedItems();
         if (!selectedItems.isEmpty()) {
             ObservableList<String> itemsToDelete = FXCollections.observableArrayList(selectedItems);
-            todoItems.removeAll(itemsToDelete);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Biztos, hogy ki akarod törölni ezeket a todokat:", ButtonType.YES, ButtonType.NO);
+            alert.setHeaderText(null);
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    todoItems.removeAll(itemsToDelete);
+                }
+            });
         }
     }
 
